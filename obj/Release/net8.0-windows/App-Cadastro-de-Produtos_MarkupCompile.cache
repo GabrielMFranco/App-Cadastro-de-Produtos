@@ -4,15 +4,15 @@
 winexe
 C#
 .cs
-C:\Users\Gabriel\Documents\Programação\App-Cadastro-de-Produtos\App-Cadastro-de-Produtos\obj\Debug\net8.0-windows\
+C:\Users\Gabriel\Documents\Programação\App-Cadastro-de-Produtos\App-Cadastro-de-Produtos\obj\Release\net8.0-windows\
 App_Cadastro_de_Produtos
 none
 false
-TRACE;DEBUG;NET;NET8_0;NETCOREAPP
+TRACE;RELEASE;NET;NET8_0;NETCOREAPP
 C:\Users\Gabriel\Documents\Programação\App-Cadastro-de-Produtos\App-Cadastro-de-Produtos\App.xaml
 31770889659
 
-121574582181
+12893412888
 2021997678065
 Styles\Buttons.xaml;Styles\TextBox.xaml;View\MainWindow.xaml;
 
