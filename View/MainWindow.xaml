@@ -1,0 +1,157 @@
+﻿<Window x:Class="App_Cadastro_de_Produtos.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:me="clr-namespace:App_Cadastro_de_Produtos.MarkupExtensions"
+        xmlns:local="clr-namespace:App_Cadastro_de_Produtos"
+		xmlns:system="clr-namespace:System;assembly=mscorlib"
+		xmlns:viewmodel="clr-namespace:CadastroDeProdutos.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
+		xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+		mc:Ignorable="d"
+        Title="Gerenciamento de Estoque"
+		Height="450" Width="800" MinWidth="800"
+		Foreground="{DynamicResource TextBrush}"
+		Background="{DynamicResource MainBackgroundBrush}"
+		Topmost="True">
+	<Grid Margin="10">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="2*"/>
+		</Grid.ColumnDefinitions>
+		<Grid Grid.Column="0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="auto"/>
+				<RowDefinition Height="auto"/>
+				<RowDefinition Height="auto"/>
+				<RowDefinition Height="auto"/>
+				<RowDefinition Height="auto"/>
+				<RowDefinition Height="auto"/>
+				<RowDefinition Height="auto"/>
+			</Grid.RowDefinitions>
+			<TextBlock Grid.ColumnSpan="2"
+					   Text="Cadastro de Produto"
+					   HorizontalAlignment="Center" Margin="0,10,0,20"
+					   FontFamily="Verdana"
+					   FontWeight="Bold"
+					   FontSize="20"/>
+			<TextBlock Grid.Column="0" Grid.Row="1"
+					   Text="Nome do produto:"
+					   HorizontalAlignment="Right" VerticalAlignment="Center"
+					   Margin="0,10,2,10"/>
+			<TextBox Grid.Column="1" Grid.Row="1" 
+					 Text="{Binding NewProductName}"/>
+			<TextBlock Text="Quantia em estoque:"
+					   Grid.Column="0" Grid.Row="2"  
+					   HorizontalAlignment="Right" VerticalAlignment="Center"
+					   Margin="0,10,2,10"/>
+			<TextBox Grid.Column="1" Grid.Row="2"
+					 Text="{Binding NewProductUnits}"/>
+			<TextBlock Grid.Column="0" Grid.Row="3" 
+					   Text="Preço:"
+					   HorizontalAlignment="Right" VerticalAlignment="Center"
+					   Margin="0,10,2,10"/>
+			<TextBox Grid.Column="1" Grid.Row="3"
+					 Text="{Binding NewProductPrice}"/>
+			<TextBlock Grid.Column="0" Grid.Row="4" 
+					   Text="Validade:" 
+					   HorizontalAlignment="Right" VerticalAlignment="Center"
+					   Margin="0,10,2,10"/>
+			<DatePicker Grid.Column="1" Grid.Row="4"
+						SelectedDate="{Binding NewProductExpirationDate}"
+						DisplayDateStart="{x:Static system:DateTime.Today}"/>
+			<Button Grid.ColumnSpan="2" Grid.Row="5"
+					Command="{Binding AddProductCommand}"
+					Content="Cadastrar"
+					Style="{DynamicResource PrimaryButtonStyle}"/>
+
+			<StackPanel Grid.ColumnSpan="2" Grid.Row="6">
+				<TextBlock Visibility="{Binding IsErrorVisible, Converter={StaticResource BoolVisibilityConverter}}"
+						   Text="{Binding ErrorMessage}" Foreground="red" Background="LightGray"
+						   Padding="10" HorizontalAlignment="Center"
+						   FontFamily="arial" FontSize="16"
+						   TextAlignment="Center"/>
+			</StackPanel>
+		</Grid>
+
+		<Grid Grid.Column="1" Margin="10,0,0,0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="auto"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="auto"/>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="auto"/>
+			</Grid.RowDefinitions>
+			
+			<Grid Grid.ColumnSpan="2" Grid.Row="0" Margin="0,0,0,15">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="auto"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<ToggleButton IsChecked="{Binding IsDarkMode, Mode=TwoWay}"
+							  Grid.Column="0" Content="{DynamicResource DarkModeToggleContent}" HorizontalAlignment="Left"
+							  Padding="5" Width="30"/>
+				<TextBlock Grid.ColumnSpan="2" Text="Estoque de Produtos" HorizontalAlignment="Center"
+						   FontFamily="Verdana"
+						   FontWeight="Bold"
+						   FontSize="18"/>
+			</Grid>
+
+			<DataGrid Grid.ColumnSpan="2" Grid.Row="1"
+					  ItemsSource="{Binding Product}"
+					  Background="{Binding DataGridBackgroundBrush}"
+					  AutoGenerateColumns="False"
+					  CanUserAddRows="False"
+					  FontWeight="Bold"
+					  RowHeaderWidth="0">
+				<DataGrid.Resources>
+					<Style TargetType="DataGridColumnHeader">
+						<Setter Property="Background" Value="{DynamicResource TextBoxBackgroundBrush}"/>
+					</Style>
+				</DataGrid.Resources>
+				<DataGrid.RowStyle>
+					<Style TargetType="DataGridRow">
+						<Setter Property="TextElement.Foreground" Value="White"/>
+						<Setter Property="Background" Value="{Binding ProductExpirationDate, Converter={StaticResource ColorValidityDate}}"/>
+					</Style>
+					
+				</DataGrid.RowStyle>
+				<DataGrid.Columns>
+					<DataGridTextColumn Header="Produto" Binding="{Binding ProductName}" Width="*"/>
+					<DataGridTextColumn Header="Unidades" Binding="{Binding ProductUnits}" Width="80"/>
+					<DataGridTextColumn Header="Preço" Binding="{me:CultureAwareBinding Path=ProductPrice, StringFormat={}{0:C}}" Width="90"/>
+					<DataGridTextColumn Header="Validade"  Width="80" 
+										Binding="{Binding ProductExpirationDate, StringFormat='{}{0:dd/MM/yyyy}'}"/>
+					<DataGridTemplateColumn Header="" Width="30">
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<Button Command="{Binding DataContext.DeleteProductCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+										CommandParameter="{Binding}" 
+										Content="🗑" 
+										Style="{StaticResource DeleteButtonStyle}"/>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+					</DataGridTemplateColumn>
+				</DataGrid.Columns>
+			</DataGrid>
+			<StackPanel Grid.ColumnSpan="2" Grid.Row="2" 
+						Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+				<Button Command="{Binding LoadProductsCommand}"
+						Content="Recarregar"
+						Style="{StaticResource SecondaryButtonStyle}"/>
+				<Button Command="{Binding SaveCommand}"
+						Content="Salvar" 
+						Margin="5,0"
+						Style="{StaticResource SecondaryButtonStyle}"/>
+				<Ellipse Visibility="{Binding UnsavedItems, Converter={StaticResource BoolVisibilityConverter}}"
+						 Width="15" Height="15" Fill="red"/>
+			</StackPanel>
+		</Grid>
+    </Grid>
+</Window>

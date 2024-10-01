@@ -1,0 +1,22 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<Style TargetType="TextBox">
+		<Setter Property="Background" Value="{DynamicResource TextBoxBackgroundBrush}"/>
+		<Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+		<Setter Property="Margin" Value="0,10"/>
+		<Setter Property="Padding" Value="3"/>
+	</Style>
+
+	<Style TargetType="DatePicker">
+		<Setter Property="Background" Value="{DynamicResource TextBoxBackgroundBrush}"/>
+		<Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+		<Setter Property="Margin" Value="0,10"/>
+		<Setter Property="Padding" Value="3"/>
+		<Setter Property="BorderThickness" Value="1"/>
+	</Style>
+	<Style TargetType="DatePickerTextBox">
+		<Setter Property="Padding" Value="1"/>
+		<Setter Property="Background" Value="{DynamicResource TextBoxBackgroundBrush}"/>
+	</Style>
+</ResourceDictionary>
