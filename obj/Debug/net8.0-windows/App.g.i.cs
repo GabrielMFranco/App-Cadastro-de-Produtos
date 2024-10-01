@@ -63,7 +63,7 @@ namespace App_Cadastro_de_Produtos {
             
             #line default
             #line hidden
-            System.Uri resourceLocater = new System.Uri("/App-Cadastro-de-Produtos;component/app.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/App-Cadastro-de-Produtos;V1.0.0.0;component/app.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\App.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
